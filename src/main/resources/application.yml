@@ -1,0 +1,4 @@
+spring:
+  transfer:
+    kakao: https://dapi.kakao.com/
+    naver: 
