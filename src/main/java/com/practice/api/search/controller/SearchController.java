@@ -1,4 +1,5 @@
 package com.practice.api.search.controller;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -16,16 +17,22 @@ import com.practice.api.search.enums.KakaoSortCode;
 import com.practice.api.search.model.req.*;
 import com.practice.api.search.model.req.kakao.*;
 import com.practice.api.search.model.resp.SearchBlogResp;
+import com.practice.api.search.model.resp.SearchWordRank;
 import com.practice.api.search.model.resp.kakao.*;
+import com.practice.api.search.service.SearchService;
 
 @RestController
 @RequestMapping("/search")
 public class SearchController {
-	
+
+	private final SearchService searchService;
 	private final KakaoTransfer kakaoTransfer;
 
 	@Autowired
-	SearchController(KakaoTransfer kakaoTransfer){
+	SearchController(
+			SearchService searchService
+			, KakaoTransfer kakaoTransfer){
+		this.searchService = searchService;
 		this.kakaoTransfer = kakaoTransfer;
 	}
 	
@@ -39,7 +46,7 @@ public class SearchController {
 			@RequestBody @Valid SearchBlogReq req) throws Exception {
 		var reqKakaoSortCode = Optional.ofNullable(KakaoSortCode.getCodeByCodeValue(req.getSort())).orElse(KakaoSortCode.ACCURACY);
 		var v2SearchBlogReq = new V2SearchBlogReq();
-		v2SearchBlogReq.setQuery(req.getSearchWork());
+		v2SearchBlogReq.setQuery(req.getSearchWord());
 		v2SearchBlogReq.setSort(reqKakaoSortCode);
 		v2SearchBlogReq.setPage(req.getPage());
 		v2SearchBlogReq.setSize(req.getSize());
@@ -49,7 +56,13 @@ public class SearchController {
 		returnValue.setPage(req.getPage());
 		returnValue.setSize(req.getSize());
 		returnValue.setSort(reqKakaoSortCode.getCode());
+		
+		searchService.saveSearchWordLog(req.getSearchWord());
 		return returnValue;
 	}
-
+	
+	@GetMapping("/rank")
+	public List<SearchWordRank> getSearchWorkRank() throws Exception {
+		return searchService.selectSearchWordRank();
+	}
 }

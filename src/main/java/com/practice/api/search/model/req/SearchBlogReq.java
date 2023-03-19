@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class SearchBlogReq {
 	@NotNull(message = "검색어를 입력해 주세요.")
-	private String searchWork;
+	private String searchWord;
 	private String sort;
 	private Integer size;
 	private Integer page;

@@ -14,9 +14,11 @@ GET http://localhost:8080/search/blog HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 
 {
-    "searchWork": "test",
+    "searchWord": "test",
     "page": 1,
     "size": 15
 }
 
+### Get Rank Test
+GET http://localhost:8080/search/rank HTTP/1.1
 
