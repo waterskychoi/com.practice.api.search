@@ -14,7 +14,8 @@ public interface SearchWordLogRepository extends JpaRepository<SearchWordLog, Lo
 			+ " A.searchWord, COUNT(*))"
 			+ " FROM SearchWordLog A"
 			+ " GROUP BY A.searchWord"
-			+ " ORDER BY COUNT(*) DESC")
+			+ " ORDER BY COUNT(*) DESC"
+			+ " LIMIT 10")
 	List<SearchWordRank> findSearchWordRank();
 
 }
