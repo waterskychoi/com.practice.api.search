@@ -24,6 +24,17 @@ public class KakaoTransfer {
 
     private final Charset Charset_UTF8 = Charset.forName("UTF-8");
     private final String V2SearcgBlogUrl = "/v2/search/blog";
+    
+    private final Integer maxPage = 50;
+    private final Integer maxSize = 50;
+    
+    public Integer getMaxPage() {
+    	return this.maxPage;
+    }
+    
+    public Integer getMaxSize() {
+    	return this.maxSize;
+    }
 
     @Autowired
     public KakaoTransfer(
