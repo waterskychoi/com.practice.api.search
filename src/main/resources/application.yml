@@ -1,4 +1,6 @@
 spring:
+  apikey:
+    kakao: 7c46861feae1b0f674877784391af0d1
   transfer:
     kakao: https://dapi.kakao.com/
     naver: 
