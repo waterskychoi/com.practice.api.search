@@ -3,9 +3,7 @@ package com.practice.api.search.model.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

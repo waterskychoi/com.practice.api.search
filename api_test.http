@@ -1,6 +1,5 @@
 ### KAKAO Test
-GET https://dapi.kakao.com/v2/search/blog?query=test&size=20&page=36 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
+GET https://dapi.kakao.com/v2/search/blog?query=개발자&sort=recency&size=10&page=1 HTTP/1.1
 Authorization: KakaoAK 7c46861feae1b0f674877784391af0d1
 
 
@@ -11,15 +10,25 @@ GET http://localhost:8080/search/test HTTP/1.1
 ### sort : "accuracy" , "recency"
 ### Search BLOG Test
 GET http://localhost:8080/search/blog HTTP/1.1
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/json
 
 {
-    "searchWord": "13",
+    "searchWord": "개발자",
     "sort": "recency",
-    "page": 1,
-    "size": 20
+    "size": 10,
+    "page": 1
 }
 
 ### Get Rank Test
 GET http://localhost:8080/search/rank HTTP/1.1
 
+
+
+### TODO :
+### API 명세서
+### - Validation 추가 및 기본값
+### - Global Exception
+### Naver API
+### 멀티 모듈 구성 및 모듈간 의존성 제약
+### ** jar 파일 실행 검토 필수
+### 

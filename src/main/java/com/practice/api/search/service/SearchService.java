@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort;
 
 import com.practice.api.search.model.entity.SearchWordLog;
 import com.practice.api.search.model.resp.SearchWordRank;
@@ -20,7 +18,7 @@ public class SearchService {
 	SearchService(SearchWordLogRepository searchWordRankRepository){
 		this.searchWordRankRepository = searchWordRankRepository;
 	}
-	
+
 	public List<SearchWordRank> selectSearchWordRank() {
 		return searchWordRankRepository.findSearchWordRank();
 	}

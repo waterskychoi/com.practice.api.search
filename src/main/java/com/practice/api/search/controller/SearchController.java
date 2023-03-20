@@ -1,6 +1,5 @@
 package com.practice.api.search.controller;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import com.practice.api.search.model.req.*;
 import com.practice.api.search.model.req.kakao.*;
 import com.practice.api.search.model.resp.SearchBlogResp;
 import com.practice.api.search.model.resp.SearchWordRank;
-import com.practice.api.search.model.resp.kakao.*;
 import com.practice.api.search.service.SearchService;
 
 @RestController

@@ -13,8 +13,6 @@ import java.nio.charset.Charset;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,19 +20,8 @@ public class KakaoTransfer {
 
     private WebClient webClient;
 
-    private final Charset Charset_UTF8 = Charset.forName("UTF-8");
+    //private final Charset Charset_UTF8 = Charset.forName("UTF-8");
     private final String V2SearcgBlogUrl = "/v2/search/blog";
-    
-    private final Integer maxPage = 50;
-    private final Integer maxSize = 50;
-    
-    public Integer getMaxPage() {
-    	return this.maxPage;
-    }
-    
-    public Integer getMaxSize() {
-    	return this.maxSize;
-    }
 
     @Autowired
     public KakaoTransfer(
@@ -44,24 +31,25 @@ public class KakaoTransfer {
         this.webClient = builder
         		.defaultHeader("Authorization", "KakaoAK " + apiKeyConfig.getKakao())
         		.baseUrl(transferConfig.getKakao()).build();
-    }    
+    }
 
     public V2SearchBlogResp getV2SearchBlog(V2SearchBlogReq v2SearchBlogReq) throws Exception {
     	LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("query", URLEncoder.encode(v2SearchBlogReq.getQuery(),Charset_UTF8));        
+        //parameters.add("query", URLEncoder.encode(v2SearchBlogReq.getQuery(),Charset_UTF8));
+    	parameters.add("query", v2SearchBlogReq.getQuery());
         if(Objects.nonNull(v2SearchBlogReq.getSort())) {
-        	parameters.add("page", v2SearchBlogReq.getSort().getCode());
-        }        
+        	parameters.add("sort", v2SearchBlogReq.getSort().getCode());
+        }
         if(Objects.nonNull(v2SearchBlogReq.getPage())) {
-        	parameters.add("page", v2SearchBlogReq.getPage().toString());        	
+        	parameters.add("page", v2SearchBlogReq.getPage().toString());
         }
         if(Objects.nonNull(v2SearchBlogReq.getSize())) {
-        	parameters.add("size", v2SearchBlogReq.getSize().toString());        	
-        }        
+        	parameters.add("size", v2SearchBlogReq.getSize().toString());
+        }
 
         V2SearchBlogResp result = webClient.get()
                 .uri(uriBuilder -> uriBuilder.path(V2SearcgBlogUrl).queryParams(parameters).build())
-                .acceptCharset(Charset_UTF8)
+                //.acceptCharset(Charset_UTF8)
                 .retrieve().bodyToMono(V2SearchBlogResp.class)
                 .block();
         return result;
