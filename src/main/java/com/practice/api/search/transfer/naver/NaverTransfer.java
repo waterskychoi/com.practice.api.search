@@ -59,6 +59,6 @@ public class NaverTransfer {
                 //.acceptCharset(StandardCharsets.UTF_8)
                 .retrieve().bodyToMono(NaverV1SearchBlogResp.class)
                 .block();
-        return null;
+        return result;
     }
 }
