@@ -5,11 +5,11 @@ import org.springframework.util.LinkedMultiValueMap;
 
 import com.practice.api.search.config.ApiKeyConfig;
 import com.practice.api.search.config.TransferConfig;
-import com.practice.api.search.model.req.kakao.V2SearchBlogReq;
-import com.practice.api.search.model.resp.kakao.V2SearchBlogResp;
+import com.practice.api.search.model.req.kakao.KakaoV2SearchBlogReq;
+import com.practice.api.search.model.resp.kakao.KakaoV2SearchBlogResp;
 
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ public class KakaoTransfer {
 
     private WebClient webClient;
 
-    //private final Charset Charset_UTF8 = Charset.forName("UTF-8");
     private final String V2SearcgBlogUrl = "/v2/search/blog";
 
     @Autowired
@@ -33,25 +32,29 @@ public class KakaoTransfer {
         		.baseUrl(transferConfig.getKakao()).build();
     }
 
-    public V2SearchBlogResp getV2SearchBlog(V2SearchBlogReq v2SearchBlogReq) throws Exception {
-    	LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        //parameters.add("query", URLEncoder.encode(v2SearchBlogReq.getQuery(),Charset_UTF8));
-    	parameters.add("query", v2SearchBlogReq.getQuery());
-        if(Objects.nonNull(v2SearchBlogReq.getSort())) {
-        	parameters.add("sort", v2SearchBlogReq.getSort().getCode());
-        }
-        if(Objects.nonNull(v2SearchBlogReq.getPage())) {
-        	parameters.add("page", v2SearchBlogReq.getPage().toString());
-        }
-        if(Objects.nonNull(v2SearchBlogReq.getSize())) {
-        	parameters.add("size", v2SearchBlogReq.getSize().toString());
-        }
+    public KakaoV2SearchBlogResp getV2SearchBlog(KakaoV2SearchBlogReq v2SearchBlogReq) throws Exception {
+    	try {
+    		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+            parameters.add("query", URLEncoder.encode(v2SearchBlogReq.getQuery(),StandardCharsets.UTF_8));
+            if(Objects.nonNull(v2SearchBlogReq.getSort())) {
+            	parameters.add("sort", v2SearchBlogReq.getSort().getCode());
+            }
+            if(Objects.nonNull(v2SearchBlogReq.getPage())) {
+            	parameters.add("page", v2SearchBlogReq.getPage().toString());
+            }
+            if(Objects.nonNull(v2SearchBlogReq.getSize())) {
+            	parameters.add("size", v2SearchBlogReq.getSize().toString());
+            }
 
-        V2SearchBlogResp result = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path(V2SearcgBlogUrl).queryParams(parameters).build())
-                //.acceptCharset(Charset_UTF8)
-                .retrieve().bodyToMono(V2SearchBlogResp.class)
-                .block();
-        return result;
+            KakaoV2SearchBlogResp result = webClient.get()
+                    .uri(uriBuilder -> uriBuilder.path(V2SearcgBlogUrl).queryParams(parameters).build())
+                    .retrieve().bodyToMono(KakaoV2SearchBlogResp.class)
+                    .block();
+            return result;
+    	}
+    	catch (Exception ex) {
+    		//TODO : Looging 추가
+    		return null;
+    	}
     }
 }

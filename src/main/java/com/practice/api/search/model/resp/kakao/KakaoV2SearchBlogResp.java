@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class V2SearchBlogResp {
+public class KakaoV2SearchBlogResp {
 	private KakaoRespMeta meta;
 	private List<KakaoRespDocuments> documents;
 }

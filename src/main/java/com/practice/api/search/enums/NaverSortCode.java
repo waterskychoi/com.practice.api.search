@@ -1,16 +1,16 @@
 package com.practice.api.search.enums;
 
-public enum KakaoSortCode {
+public enum NaverSortCode {
 
-	ACCURACY("accuracy", "정화도순", "accuracy"), //Default
-    RECENCY("recency", "최신순", "recency")
+	SIM("sim", "정화도순", "accuracy"), //Default
+    DATE("date", "날짜순", "recency")
     ;
 
     private String code;
     private String name;
     private String searchSortCode;
 
-    KakaoSortCode(String code, String name, String searchSortCode) {
+    NaverSortCode(String code, String name, String searchSortCode) {
         this.code = code;
         this.name = name;
         this.searchSortCode = searchSortCode;
@@ -28,23 +28,23 @@ public enum KakaoSortCode {
         return this.searchSortCode;
     }
 
-    public static KakaoSortCode getCodeByCodeValue(String code) {
-    	KakaoSortCode[] items = KakaoSortCode.values();
-        for (KakaoSortCode item : items) {
+    public static NaverSortCode getCodeByCodeValue(String code) {
+    	NaverSortCode[] items = NaverSortCode.values();
+        for (NaverSortCode item : items) {
             if (item.getCode().equalsIgnoreCase(code)) {
                 return item;
             }
         }
-        return KakaoSortCode.ACCURACY;
+        return NaverSortCode.SIM;
     }
 
-    public static KakaoSortCode getCodeBySearchSortCode(String searchSortCode) {
-    	KakaoSortCode[] items = KakaoSortCode.values();
-        for (KakaoSortCode item : items) {
+    public static NaverSortCode getCodeBySearchSortCode(String searchSortCode) {
+    	NaverSortCode[] items = NaverSortCode.values();
+        for (NaverSortCode item : items) {
             if (item.getSearchSortCode().equalsIgnoreCase(searchSortCode)) {
                 return item;
             }
         }
-        return KakaoSortCode.ACCURACY;
+        return NaverSortCode.SIM;
     }
 }

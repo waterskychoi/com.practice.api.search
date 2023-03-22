@@ -12,4 +12,6 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "spring.apikey")
 public class ApiKeyConfig {
 	private String kakao;
+	private String naverId;
+	private String naverSecret;
 }
