@@ -28,7 +28,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = {Throwable.class})
 	public ResponseEntity<Object> handleException(Exception exception, HttpHeaders headers) {
 		//TODO : Logging
-		String message = messageSource.getMessage(ExceptionCode.MESSAGE_NOT_READABLE.getCode(), null, null, null);
+		String message = messageSource.getMessage(ExceptionCode.INTERNAL_SERVER_ERROR.getCode(), null, null, null);
 		return new ResponseEntity<>(new ExceptionResp(ExceptionCode.INTERNAL_SERVER_ERROR.getCode(), message), headers, HttpStatusCode.valueOf(500));
 	}
 
